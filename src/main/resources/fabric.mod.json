@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "server-auth",
+  "version": "${version}",
+  "name": "server-auth",
+  "description": "Fabric mod for config-based server authentication",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/server-auth/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "org.lunarpatriots.serverauth.client.ServerAuthDataGenerator"
+    ],
+    "client": [
+      "org.lunarpatriots.serverauth.client.ServerAuthClient"
+    ],
+    "main": [
+      "org.lunarpatriots.serverauth.ServerAuth"
+    ]
+  },
+  "mixins": [
+    "server-auth.mixins.json",
+    {
+      "config": "server-auth.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

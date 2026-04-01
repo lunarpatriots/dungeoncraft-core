@@ -1,0 +1,78 @@
+# =========================
+# Gradle
+# =========================
+.gradle/
+build/
+out/
+classes/
+
+# Gradle wrapper (keep jar, ignore binaries)
+!gradle/wrapper/gradle-wrapper.jar
+
+# Logs
+*.log
+
+# =========================
+# Fabric / Minecraft
+# =========================
+run/
+logs/
+crash-reports/
+debug/
+
+# Loom generated files
+remappedSrc/
+remappedJars/
+
+# =========================
+# IDEs
+# =========================
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Java
+# =========================
+*.class
+*.jar
+*.war
+*.ear
+
+# =========================
+# Environment / Secrets
+# =========================
+.env
+*.env
+.env.*
+
+# Config files (optional — choose carefully)
+# Uncomment if your config contains secrets like DB passwords
+# config/
+# *.yml
+# *.yaml
+# *.properties
+
+# =========================
+# Misc
+# =========================
+*.swp
+*.swo
+*~
