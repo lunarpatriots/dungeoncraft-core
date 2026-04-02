@@ -51,12 +51,14 @@ public class ConfigLoaderUtil {
 
   public static boolean validateServerConfigs(final ServerConfig serverConfig) {
     return serverConfig != null
-      && serverConfig.getDatabase() != null
-      && !StringUtils.isNullOrEmpty(serverConfig.getDatabase().getJdbcUrl())
-      && !StringUtils.isNullOrEmpty(serverConfig.getDatabase().getUsername())
-      && !StringUtils.isNullOrEmpty(serverConfig.getDatabase().getPassword())
-      && serverConfig.getDatabase().getPoolSize() != null
-      && serverConfig.getRegistrationAllowed() != null;
+      && serverConfig.getEnabled() != null
+      && (!serverConfig.getEnabled()
+        || (serverConfig.getDatabase() != null
+          && !StringUtils.isNullOrEmpty(serverConfig.getDatabase().getJdbcUrl())
+          && !StringUtils.isNullOrEmpty(serverConfig.getDatabase().getUsername())
+          && !StringUtils.isNullOrEmpty(serverConfig.getDatabase().getPassword())
+          && serverConfig.getDatabase().getPoolSize() != null
+          && serverConfig.getRegistrationAllowed() != null));
   }
 
   private ConfigLoaderUtil() {
