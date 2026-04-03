@@ -1,0 +1,7 @@
+database:
+  jdbcUrl:
+  username:
+  password:
+  poolSize:
+registrationAllowed: false
+enabled: false

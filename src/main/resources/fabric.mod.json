@@ -2,28 +2,28 @@
   "schemaVersion": 1,
   "id": "server-auth",
   "version": "${version}",
-  "name": "server-auth",
-  "description": "Fabric mod for config-based server authentication",
+  "name": "dungeoncraft",
+  "description": "Core mod that adds custom functionalities to DungeonCraft modpacks",
   "authors": [],
   "contact": {},
   "license": "All-Rights-Reserved",
-  "icon": "assets/server-auth/icon.png",
+  "icon": "assets/dungeoncraft/icon.png",
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
-      "org.lunarpatriots.serverauth.client.ServerAuthDataGenerator"
+      "com.lunarpatriots.dungeoncraft.client.DungeonCraftDataGenerator"
     ],
     "client": [
-      "org.lunarpatriots.serverauth.client.ServerAuthClient"
+      "com.lunarpatriots.dungeoncraft.client.DungeonCraftClient"
     ],
     "main": [
-      "org.lunarpatriots.serverauth.ServerAuth"
+      "com.lunarpatriots.dungeoncraft.DungeonCraft"
     ]
   },
   "mixins": [
-    "server-auth.mixins.json",
+    "dungeoncraft.mixins.json",
     {
-      "config": "server-auth.client.mixins.json",
+      "config": "dungeoncraft.client.mixins.json",
       "environment": "client"
     }
   ],
