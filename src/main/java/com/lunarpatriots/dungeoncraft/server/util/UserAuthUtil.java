@@ -25,9 +25,8 @@ public class UserAuthUtil {
   }
 
   public static UserInfo getUserInfo(final String username) throws SQLException {
-    final Connection dbConnection = DbConnectionUtil.getConnection();
-
-    try (PreparedStatement preparedStatement = buildPreparedStatement(dbConnection, GET_USER_INFO, username);
+    try (Connection dbConnection = DbConnectionUtil.getConnection();
+      PreparedStatement preparedStatement = buildPreparedStatement(dbConnection, GET_USER_INFO, username);
          ResultSet resultSet = preparedStatement.executeQuery()) {
 
       UserInfo userInfo = null;
