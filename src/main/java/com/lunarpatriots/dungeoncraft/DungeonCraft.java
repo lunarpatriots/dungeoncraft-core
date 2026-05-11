@@ -1,8 +1,9 @@
 package com.lunarpatriots.dungeoncraft;
 
+import com.lunarpatriots.dungeoncraft.common.util.ConfigManager;
 import com.lunarpatriots.dungeoncraft.server.model.DatabaseProperties;
-import com.lunarpatriots.dungeoncraft.server.util.ConfigLoaderUtil;
 import com.lunarpatriots.dungeoncraft.server.util.UserAuthUtil;
+import com.lunarpatriots.dungeoncraft.server.validator.ServerConfigValidator;
 import com.mysql.cj.util.StringUtils;
 import net.fabricmc.api.ModInitializer;
 
@@ -34,7 +35,10 @@ public class DungeonCraft implements ModInitializer {
   @Override
   public void onInitialize() {
     LOGGER.info("Starting DungeonCraft");
-    final ServerConfig serverConfig = ConfigLoaderUtil.loadServerConfigs();
+    final ServerConfig serverConfig = ConfigManager.loadConfigs(
+      ServerConfig.class,
+      new ServerConfig(),
+      ServerConfigValidator::validate);
 
     if (serverConfig.getEnabled()) {
       final DatabaseProperties dbProperties = serverConfig.getDatabase();

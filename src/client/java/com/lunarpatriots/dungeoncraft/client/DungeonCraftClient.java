@@ -1,10 +1,11 @@
 package com.lunarpatriots.dungeoncraft.client;
 
-import com.lunarpatriots.dungeoncraft.client.util.ConfigLoaderUtil;
+import com.lunarpatriots.dungeoncraft.client.validator.ClientConfigValidator;
+import com.lunarpatriots.dungeoncraft.common.util.ConfigManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking;
 import net.minecraft.network.PacketByteBuf;
-import com.lunarpatriots.dungeoncraft.client.model.ClientConfig;
+import com.lunarpatriots.dungeoncraft.common.model.ClientConfig;
 import com.lunarpatriots.dungeoncraft.common.util.HashingUtil;
 
 import java.util.concurrent.CompletableFuture;
@@ -15,10 +16,13 @@ public class DungeonCraftClient implements ClientModInitializer {
 
   @Override
   public void onInitializeClient() {
+    final ClientConfig clientConfig = ConfigManager.loadConfigs(
+      ClientConfig.class,
+      new ClientConfig(),
+      ClientConfigValidator::validate);
+
     ClientLoginNetworking.registerGlobalReceiver(MOD_HANDSHAKE_PACKET_ID, (client, handler, buf, responseSender) -> {
       final String nonce = buf.readString(32767);
-
-      final ClientConfig clientConfig = ConfigLoaderUtil.loadClientConfig();
 
       final String username = clientConfig.getUsername();
       final String password = clientConfig.getPassword();

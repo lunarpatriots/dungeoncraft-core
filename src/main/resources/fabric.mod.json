@@ -1,14 +1,31 @@
 {
   "schemaVersion": 1,
-  "id": "server-auth",
+  "id": "dungeoncraft-core",
   "version": "${version}",
-  "name": "dungeoncraft",
+  "name": "DungeonCraft Core",
   "description": "Core mod that adds custom functionalities to DungeonCraft modpacks",
-  "authors": [],
-  "contact": {},
-  "license": "All-Rights-Reserved",
+  "authors": [
+    {
+    "name": "lunarpatriots"
+    }
+  ],
+  "contact": {
+    "homepage": "https://github.com/lunarpatriots/dungeoncraft-core",
+    "issues": "https://github.com/lunarpatriots/dungeoncraft-core/issues"
+  },
+  "license": "GPLv3",
   "icon": "assets/dungeoncraft/icon.png",
   "environment": "*",
+  "custom": {
+    "modmenu": {
+      "links": {
+        "Github": "https://github.com/lunarpatriots/dungeoncraft-core",
+        "Curseforge": "https://curseforge.com/minecraft/mc-mods/dungeoncraft-core",
+        "Modrinth": "https://modrinth.com/mod/dungeoncraft-core"
+
+      }
+    }
+  },
   "entrypoints": {
     "fabric-datagen": [
       "com.lunarpatriots.dungeoncraft.client.DungeonCraftDataGenerator"
@@ -18,6 +35,9 @@
     ],
     "main": [
       "com.lunarpatriots.dungeoncraft.DungeonCraft"
+    ],
+    "modmenu": [
+      "com.lunarpatriots.dungeoncraft.client.integration.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -30,6 +50,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft_version}",
+    "cloth-config": ">=${cloth_config_version}"
   }
 }
