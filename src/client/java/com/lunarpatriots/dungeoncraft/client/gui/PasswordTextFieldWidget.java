@@ -1,4 +1,4 @@
-package com.lunarpatriots.dungeoncraft.client.integration;
+package com.lunarpatriots.dungeoncraft.client.gui;
 
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;

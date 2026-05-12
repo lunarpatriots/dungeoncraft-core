@@ -1,9 +1,9 @@
 # DungeonCraft Core
 
-[![GitHub last commit](https://img.shields.io/github/last-commit/lunarpatriots/server-auth.svg?logo=github)](https://github.com/lunarpatriots/server-auth/commits/develop)
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/lunarpatriots/server-auth.svg?logo=github)](https://github.com/lunarpatriots/server-auth)
-[![GitHub contributors](https://img.shields.io/github/contributors/lunarpatriots/server-auth.svg?logo=github)](https://github.com/lunarpatriots/server-auth/graphs/contributors)
-[![License](https://img.shields.io/github/license/lunarpatriots/server-auth.svg?logo=github)](https://github.com/lunarpatriots/server-auth/blob/develop/LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/lunarpatriots/dungeoncraft-core.svg?logo=github)](https://github.com/lunarpatriots/server-auth/commits/develop)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/lunarpatriots/dungeoncraft-core.svg?logo=github)](https://github.com/lunarpatriots/server-auth)
+[![GitHub contributors](https://img.shields.io/github/contributors/lunarpatriots/dungeoncraft-core.svg?logo=github)](https://github.com/lunarpatriots/dungeoncraft-core/graphs/contributors)
+[![License](https://img.shields.io/github/license/lunarpatriots/dungeoncraft-core.svg?logo=github)](https://github.com/lunarpatriots/dungeoncraft-core/blob/develop/LICENSE)
 
 [![modrinth-badge](https://img.shields.io/modrinth/dt/dungeoncraft-core?label=Modrinth&logo=Modrinth&style=flat-square)](https://modrinth.com/mod/dungeoncraft-core)
 [![curseforge-badge](https://img.shields.io/curseforge/dt/1503126?style=flat-square&logo=curseforge&label=CurseForge)](https://curseforge.com/projects/1503126)

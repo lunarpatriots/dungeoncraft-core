@@ -1,5 +1,6 @@
 package com.lunarpatriots.dungeoncraft.client.integration;
 
+import com.lunarpatriots.dungeoncraft.client.gui.PasswordFieldEntry;
 import com.lunarpatriots.dungeoncraft.client.validator.ClientConfigValidator;
 import com.lunarpatriots.dungeoncraft.common.model.ClientConfig;
 import com.lunarpatriots.dungeoncraft.common.util.ConfigManager;
@@ -10,6 +11,8 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.minecraft.text.Text;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 public class ModMenuIntegration implements ModMenuApi {
 
@@ -28,20 +31,21 @@ public class ModMenuIntegration implements ModMenuApi {
       final ConfigCategory clientConfigs = configBuilder.getOrCreateCategory(Text.literal("Client Configs"));
 
       clientConfigs.addEntry(ConfigEntryBuilder.create()
-        .startTextDescription(Text.literal("Registration/Whitelisting")).build());
-
-      clientConfigs.addEntry(ConfigEntryBuilder.create()
-        .startStrField(
-          Text.literal("Username"),
-          StringUtils.isNotEmpty(clientConfig.getUsername())
-            ? clientConfig.getUsername()
-            : StringUtils.EMPTY)
-        .setDefaultValue(StringUtils.EMPTY)
-        .setSaveConsumer(clientConfig::setUsername)
-        .build());
-
-      clientConfigs.addEntry(new PasswordFieldEntry(Text.literal("Password"), clientConfig.getPassword())
-        .setSaveConsumer(clientConfig::setPassword));
+        .startSubCategory(
+          Text.literal("Registration/Whitelisting"),
+          List.of(ConfigEntryBuilder.create()
+            .startStrField(
+              Text.literal("Username"),
+              StringUtils.isNotEmpty(clientConfig.getUsername())
+                ? clientConfig.getUsername()
+                : StringUtils.EMPTY)
+            .setDefaultValue(StringUtils.EMPTY)
+            .setSaveConsumer(clientConfig::setUsername)
+            .build(),
+            new PasswordFieldEntry(Text.literal("Password"), clientConfig.getPassword())
+              .setSaveConsumer(clientConfig::setPassword)))
+          .setExpanded(true)
+          .build());
 
       return configBuilder
         .setSavingRunnable(() -> ConfigManager.save(ClientConfig.class,clientConfig))

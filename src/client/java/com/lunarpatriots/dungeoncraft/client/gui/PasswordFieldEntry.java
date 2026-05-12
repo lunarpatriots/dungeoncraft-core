@@ -1,4 +1,4 @@
-package com.lunarpatriots.dungeoncraft.client.integration;
+package com.lunarpatriots.dungeoncraft.client.gui;
 
 import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import net.minecraft.client.MinecraftClient;
