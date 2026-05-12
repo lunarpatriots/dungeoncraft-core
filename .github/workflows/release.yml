@@ -3,6 +3,9 @@ name: Release
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -28,38 +31,34 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Read current version
-        id: version
+      - name: Read version
+        id: v
         run: |
-          CURRENT_VERSION=$(grep "^version=" gradle.properties | cut -d'=' -f2)
-
-          RELEASE_VERSION=${CURRENT_VERSION%-SNAPSHOT}
-
-          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-          echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+          VERSION=$(grep "^version=" gradle.properties | cut -d'=' -f2)
+          RELEASE=${VERSION%-SNAPSHOT}
+          echo "release=$RELEASE" >> $GITHUB_OUTPUT
 
       - name: Set release version
         run: |
-          sed -i "s/^version=.*/version=${{ steps.version.outputs.release_version }}/" gradle.properties
-
+          sed -i "s/^version=.*/version=${{ steps.v.outputs.release }}/" gradle.properties
           git add gradle.properties
-          git commit -m "Release v${{ steps.version.outputs.release_version }}"
+          git commit -m "Release v${{ steps.v.outputs.release }}"
 
-      - name: Merge develop into master
+      - name: Merge into master
         run: |
           git checkout master
-          git merge --no-ff develop -m "Release v${{ steps.version.outputs.release_version }}"
+          git merge --no-ff develop -m "Release v${{ steps.v.outputs.release }}"
 
-      - name: Build artifact
+      - name: Build
         run: |
           chmod +x gradlew
           ./gradlew clean build
 
-      - name: Create tag
+      - name: Tag release
         run: |
-          git tag "v${{ steps.version.outputs.release_version }}"
+          git tag "v${{ steps.v.outputs.release }}"
 
-      - name: Push master and tag
+      - name: Push master + tags
         run: |
           git push origin master
           git push origin --tags
@@ -68,23 +67,23 @@ jobs:
         run: |
           git checkout develop
 
-      - name: Merge master back into develop
+      - name: Merge master back (code only)
         run: |
-          git merge --no-ff master -m "Merge master back into develop"
+          git merge --no-ff master
 
-      - name: Increment snapshot version
+      - name: Bump minor version
         run: |
-          VERSION="${{ steps.version.outputs.release_version }}"
+          VERSION=${{ steps.v.outputs.release }}
 
           IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
 
-          NEXT_PATCH=$((PATCH + 1))
-          NEXT_VERSION="$MAJOR.$MINOR.$NEXT_PATCH-SNAPSHOT"
+          NEXT_MINOR=$((MINOR + 1))
+          NEXT_VERSION="$MAJOR.$NEXT_MINOR.0-SNAPSHOT"
 
           sed -i "s/^version=.*/version=$NEXT_VERSION/" gradle.properties
 
           git add gradle.properties
-          git commit -m "Prepare next development iteration $NEXT_VERSION"
+          git commit -m "Start next dev cycle $NEXT_VERSION"
 
       - name: Push develop
         run: |
