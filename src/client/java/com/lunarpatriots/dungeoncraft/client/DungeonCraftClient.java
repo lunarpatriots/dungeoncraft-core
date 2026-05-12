@@ -16,12 +16,13 @@ public class DungeonCraftClient implements ClientModInitializer {
 
   @Override
   public void onInitializeClient() {
-    final ClientConfig clientConfig = ConfigManager.loadConfigs(
-      ClientConfig.class,
-      new ClientConfig(),
-      ClientConfigValidator::validate);
 
     ClientLoginNetworking.registerGlobalReceiver(MOD_HANDSHAKE_PACKET_ID, (client, handler, buf, responseSender) -> {
+      final ClientConfig clientConfig = ConfigManager.loadConfigs(
+        ClientConfig.class,
+        new ClientConfig(),
+        ClientConfigValidator::validate);
+
       final String nonce = buf.readString(32767);
 
       final String username = clientConfig.getUsername();
