@@ -1,4 +1,4 @@
-package com.lunarpatriots.dungeoncraft.server.model;
+package com.lunarpatriots.dungeoncraft.server.modules.serverauth.model;
 
 import lombok.Data;
 

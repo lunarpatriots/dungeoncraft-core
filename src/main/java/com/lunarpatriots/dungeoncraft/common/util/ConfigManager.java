@@ -1,5 +1,6 @@
 package com.lunarpatriots.dungeoncraft.common.util;
 
+import com.lunarpatriots.dungeoncraft.common.constants.AppConstants;
 import com.lunarpatriots.dungeoncraft.common.model.ClientConfig;
 import com.lunarpatriots.dungeoncraft.server.model.ServerConfig;
 import net.fabricmc.loader.api.FabricLoader;
@@ -20,8 +21,8 @@ import java.util.function.Predicate;
 public class ConfigManager {
 
   private static final Path DIR = FabricLoader.getInstance().getConfigDir();
-  public static final Path CLIENT_CONFIG_PATH = DIR.resolve("dungeoncraft-client.yml");
-  public static final Path SERVER_CONFIG_PATH = DIR.resolve("dungeoncraft-server.yml");
+  public static final Path CLIENT_CONFIG_PATH = DIR.resolve(AppConstants.CLIENT_CONFIG_FILE);
+  public static final Path SERVER_CONFIG_PATH = DIR.resolve(AppConstants.SERVER_CONFIG_FILE);
 
   private static Yaml createYaml(final Class<?> clazz) {
     final DumperOptions dumperOptions = new DumperOptions();

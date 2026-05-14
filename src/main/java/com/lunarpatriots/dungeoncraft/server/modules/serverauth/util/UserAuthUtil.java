@@ -1,8 +1,9 @@
-package com.lunarpatriots.dungeoncraft.server.util;
+package com.lunarpatriots.dungeoncraft.server.modules.serverauth.util;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.lunarpatriots.dungeoncraft.common.util.HashingUtil;
-import com.lunarpatriots.dungeoncraft.server.model.UserInfo;
+import com.lunarpatriots.dungeoncraft.server.modules.serverauth.model.UserInfo;
+import com.lunarpatriots.dungeoncraft.server.util.DbConnectionUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

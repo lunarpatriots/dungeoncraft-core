@@ -1,5 +1,6 @@
 package com.lunarpatriots.dungeoncraft.server.model;
 
+import com.lunarpatriots.dungeoncraft.server.modules.serverauth.model.ServerAuth;
 import lombok.Data;
 
 import java.util.LinkedHashMap;
@@ -7,15 +8,11 @@ import java.util.Map;
 
 @Data
 public class ServerConfig {
-  private DatabaseProperties database = new DatabaseProperties();
-  private Boolean registrationAllowed = false;
-  private Boolean enabled = false;
+  private ServerAuth serverAuth = new ServerAuth();
 
   public Map<String, Object> toMap() {
     final Map<String, Object> map = new LinkedHashMap<>();
-    map.put("database", this.getDatabase().toMap());
-    map.put("registrationAllowed", this.getRegistrationAllowed());
-    map.put("enabled", this.getEnabled());
+    map.put("serverAuth", this.getServerAuth().toMap());
 
     return map;
   }

@@ -6,7 +6,7 @@ import com.mysql.cj.util.StringUtils;
 public interface ClientConfigValidator {
 
   static boolean validate(final ClientConfig config) {
-    return config != null
+    return null != config
       && !StringUtils.isNullOrEmpty(config.getUsername())
       && !StringUtils.isNullOrEmpty(config.getPassword());
   }

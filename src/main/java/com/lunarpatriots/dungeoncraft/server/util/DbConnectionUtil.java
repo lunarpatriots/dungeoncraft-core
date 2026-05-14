@@ -1,6 +1,6 @@
 package com.lunarpatriots.dungeoncraft.server.util;
 
-import com.lunarpatriots.dungeoncraft.server.model.DatabaseProperties;
+import com.lunarpatriots.dungeoncraft.server.modules.serverauth.model.DatabaseProperties;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;

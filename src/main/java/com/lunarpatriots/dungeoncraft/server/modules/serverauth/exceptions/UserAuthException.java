@@ -1,4 +1,4 @@
-package com.lunarpatriots.dungeoncraft.server.exceptions;
+package com.lunarpatriots.dungeoncraft.server.modules.serverauth.exceptions;
 
 public class UserAuthException extends Exception {
 

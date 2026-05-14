@@ -1,7 +1,6 @@
-package com.lunarpatriots.dungeoncraft.server.model;
+package com.lunarpatriots.dungeoncraft.server.modules.serverauth.model;
 
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
