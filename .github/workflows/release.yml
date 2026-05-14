@@ -34,13 +34,13 @@ jobs:
       - name: Read version
         id: v
         run: |
-          VERSION=$(grep "^version=" gradle.properties | cut -d'=' -f2)
+          VERSION=$(grep "^mod_version=" gradle.properties | cut -d'=' -f2)
           RELEASE=${VERSION%-SNAPSHOT}
           echo "release=$RELEASE" >> $GITHUB_OUTPUT
 
       - name: Set release version
         run: |
-          sed -i "s/^version=.*/version=${{ steps.v.outputs.release }}/" gradle.properties
+          sed -i "s/^mod_version=.*/mod_version=${{ steps.v.outputs.release }}/" gradle.properties
           git add gradle.properties
           git commit -m "Release v${{ steps.v.outputs.release }}"
 
@@ -80,7 +80,7 @@ jobs:
           NEXT_MINOR=$((MINOR + 1))
           NEXT_VERSION="$MAJOR.$NEXT_MINOR.0-SNAPSHOT"
 
-          sed -i "s/^version=.*/version=$NEXT_VERSION/" gradle.properties
+          sed -i "s/^mod_version=.*/mod_version=$NEXT_VERSION/" gradle.properties
 
           git add gradle.properties
           git commit -m "Start next dev cycle $NEXT_VERSION"
