@@ -1,6 +1,5 @@
 package com.lunarpatriots.dungeoncraft.server.modules.serverauth.service;
 
-import com.lunarpatriots.dungeoncraft.common.util.HashingUtil;
 import com.lunarpatriots.dungeoncraft.server.modules.serverauth.exceptions.UserAuthException;
 import com.lunarpatriots.dungeoncraft.server.modules.serverauth.model.DatabaseProperties;
 import com.lunarpatriots.dungeoncraft.server.modules.serverauth.model.ServerAuth;
@@ -11,22 +10,18 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerLoginNetworkHandler;
 import net.minecraft.text.Text;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.lunarpatriots.dungeoncraft.common.constants.NetworkingConstants.MOD_HANDSHAKE_PACKET_ID;
 
 public class ServerAuthService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ServerAuthService.class);
-  private static final Map<ServerLoginNetworkHandler, String> loginNonces = new HashMap<>();
 
   private ServerAuthService() {
   }
@@ -38,11 +33,8 @@ public class ServerAuthService {
       DbConnectionUtil.initDbConnection(dbProperties);
 
       ServerLoginConnectionEvents.QUERY_START.register((handler, server, sender, synchronizer) -> {
-        final String nonce = HashingUtil.generateNonce(16);
-        loginNonces.put(handler, nonce);
 
         final PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeString(nonce);
 
         sender.sendPacket(MOD_HANDSHAKE_PACKET_ID, buf);
       });
@@ -52,17 +44,14 @@ public class ServerAuthService {
           if (understood) {
             final String username = payload.readString(32767);
             final String password = payload.readString(32767);
-            final String nonceHash = payload.readString(32767);
 
-            final String nonce = loginNonces.remove(handler);
-
-            if (validateClientData(username, password, nonceHash)) {
+            if (validateClientData(username, password)) {
               try {
                 final UserInfo userInfo = UserAuthUtil.getUserInfo(username);
                 if (null != userInfo) {
                   final String storedHash = userInfo.getPasswordHash();
 
-                  if (UserAuthUtil.verifyCredentials(password, storedHash, nonceHash, nonce)) {
+                  if (UserAuthUtil.verifyCredentials(password, storedHash)) {
                     if (!userInfo.isActive()) {
                       handler.disconnect(Text.literal("User is not whitelisted!"));
                     }
@@ -96,12 +85,9 @@ public class ServerAuthService {
     }
   }
 
-  private static boolean validateClientData(final String username,
-                                     final String password,
-                                     final String nonceHash) {
+  private static boolean validateClientData(final String username, final String password) {
     return StringUtils.isNotBlank(username)
       && StringUtils.isNotBlank(password)
-      && StringUtils.isNotBlank(nonceHash)
       && username.length() <= 255
       && password.length() <= 255;
   }

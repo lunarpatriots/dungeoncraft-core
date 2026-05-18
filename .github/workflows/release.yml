@@ -8,6 +8,7 @@ permissions:
 
 jobs:
   release:
+    if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
 
     permissions:
@@ -62,6 +63,15 @@ jobs:
         run: |
           git push origin master
           git push origin --tags
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.v.outputs.release }}
+          name: v${{ steps.v.outputs.release }}
+          generate_release_notes: true
+          files: |
+            build/libs/*.jar
 
       - name: Return to develop
         run: |
