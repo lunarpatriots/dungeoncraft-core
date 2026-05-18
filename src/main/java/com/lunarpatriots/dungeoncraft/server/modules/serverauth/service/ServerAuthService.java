@@ -7,13 +7,13 @@ import com.lunarpatriots.dungeoncraft.server.modules.serverauth.model.ServerAuth
 import com.lunarpatriots.dungeoncraft.server.modules.serverauth.model.UserInfo;
 import com.lunarpatriots.dungeoncraft.server.modules.serverauth.util.UserAuthUtil;
 import com.lunarpatriots.dungeoncraft.server.util.DbConnectionUtil;
-import com.mysql.cj.util.StringUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerLoginNetworkHandler;
 import net.minecraft.text.Text;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -99,8 +99,10 @@ public class ServerAuthService {
   private static boolean validateClientData(final String username,
                                      final String password,
                                      final String nonceHash) {
-    return !StringUtils.isNullOrEmpty(username)
-      && !StringUtils.isNullOrEmpty(password)
-      && !StringUtils.isNullOrEmpty(nonceHash);
+    return StringUtils.isNotBlank(username)
+      && StringUtils.isNotBlank(password)
+      && StringUtils.isNotBlank(nonceHash)
+      && username.length() <= 255
+      && password.length() <= 255;
   }
 }

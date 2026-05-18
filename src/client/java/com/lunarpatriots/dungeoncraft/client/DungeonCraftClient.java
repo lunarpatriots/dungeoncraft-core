@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking;
 import net.minecraft.network.PacketByteBuf;
 import com.lunarpatriots.dungeoncraft.common.model.ClientConfig;
 import com.lunarpatriots.dungeoncraft.common.util.HashingUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -25,8 +26,12 @@ public class DungeonCraftClient implements ClientModInitializer {
 
       final String nonce = buf.readString(32767);
 
-      final String username = clientConfig.getUsername();
-      final String password = clientConfig.getPassword();
+      final String username = StringUtils.isNotBlank(clientConfig.getUsername())
+        ? clientConfig.getUsername()
+        : StringUtils.EMPTY;
+      final String password = StringUtils.isNotBlank(clientConfig.getPassword())
+        ? clientConfig.getUsername()
+        : StringUtils.EMPTY;
 
       final PacketByteBuf response = new PacketByteBuf(io.netty.buffer.Unpooled.buffer());
       response.writeString(username);
