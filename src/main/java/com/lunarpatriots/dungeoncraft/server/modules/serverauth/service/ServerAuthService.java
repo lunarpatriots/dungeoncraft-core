@@ -1,6 +1,5 @@
 package com.lunarpatriots.dungeoncraft.server.modules.serverauth.service;
 
-import com.lunarpatriots.dungeoncraft.common.util.HashingUtil;
 import com.lunarpatriots.dungeoncraft.server.modules.serverauth.exceptions.UserAuthException;
 import com.lunarpatriots.dungeoncraft.server.modules.serverauth.model.DatabaseProperties;
 import com.lunarpatriots.dungeoncraft.server.modules.serverauth.model.ServerAuth;
@@ -11,15 +10,12 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerLoginNetworkHandler;
 import net.minecraft.text.Text;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.lunarpatriots.dungeoncraft.common.constants.NetworkingConstants.MOD_HANDSHAKE_PACKET_ID;
 

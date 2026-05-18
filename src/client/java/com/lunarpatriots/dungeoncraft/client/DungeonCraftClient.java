@@ -6,7 +6,6 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking;
 import net.minecraft.network.PacketByteBuf;
 import com.lunarpatriots.dungeoncraft.common.model.ClientConfig;
-import com.lunarpatriots.dungeoncraft.common.util.HashingUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.CompletableFuture;
