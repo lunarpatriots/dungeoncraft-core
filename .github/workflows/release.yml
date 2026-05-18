@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   release:
-    if: github.ref == 'refs/head/develop'
+    if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
 
     permissions:
