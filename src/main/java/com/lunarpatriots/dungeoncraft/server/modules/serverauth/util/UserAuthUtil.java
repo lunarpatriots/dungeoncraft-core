@@ -1,7 +1,6 @@
 package com.lunarpatriots.dungeoncraft.server.modules.serverauth.util;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.lunarpatriots.dungeoncraft.common.util.HashingUtil;
 import com.lunarpatriots.dungeoncraft.server.modules.serverauth.model.UserInfo;
 import com.lunarpatriots.dungeoncraft.server.util.DbConnectionUtil;
 
@@ -41,14 +40,8 @@ public class UserAuthUtil {
     }
   }
 
-  public static boolean verifyCredentials(final String password,
-                                          final String storedHash,
-                                          final String nonceHash,
-                                          final String nonce) throws SQLException {
-    final String expectedHash = HashingUtil.sha256(password + nonce);
-
-    return BCrypt.verifyer().verify((password).toCharArray(), storedHash).verified
-      && expectedHash.equals(nonceHash);
+  public static boolean verifyCredentials(final String password, final String storedHash) throws SQLException {
+    return BCrypt.verifyer().verify((password).toCharArray(), storedHash).verified;
   }
 
   private static PreparedStatement buildPreparedStatement(final Connection dbConnection,

@@ -9,6 +9,7 @@ import java.util.Map;
 public class ServerAuth {
   private Boolean enabled = false;
   private Boolean registrationAllowed = false;
+
   private DatabaseProperties database = new DatabaseProperties();
 
   public Map<String, Object> toMap() {
